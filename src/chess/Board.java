@@ -104,11 +104,7 @@ public class Board {
                     continue;
                 }
                 if (piece == null) continue;
-
-                if (color.equals(Piece.BLACK))
-                    if (piece.isWhite()) continue;
-                if (color.equals(Piece.WHITE))
-                    if (piece.isBlack()) continue;
+                if (!color.equals(piece.getColor())) continue;
 
                 if (piece.getType() == Piece.Type.PAWN) {
                     score += isColHavePawns[j] ? 0.5 : 1;
@@ -120,11 +116,9 @@ public class Board {
                 if (piece.getType() == Piece.Type.ROOK) score += 5;
                 System.out.println(score);
             }
-
         }
         return score;
     }
-
 
     private void initializeStartRow(String color, int row) {
         ArrayList<Piece> rowPieces = new ArrayList();
