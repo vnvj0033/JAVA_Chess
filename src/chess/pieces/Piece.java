@@ -134,6 +134,4 @@ public class Piece {
             Piece.whiteCount++;
         }
     }
-
-
 }

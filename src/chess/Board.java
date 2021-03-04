@@ -107,7 +107,6 @@ public class Board {
                 if (piece.getType() == Piece.Type.KNIGHT) score += 2.5;
                 if (piece.getType() == Piece.Type.QUEEN) score += 9;
                 if (piece.getType() == Piece.Type.ROOK) score += 5;
-                System.out.println(score);
             }
         }
         return score;
