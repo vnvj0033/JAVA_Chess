@@ -5,7 +5,7 @@ package chess.pieces;
  *
  * @author 상엽
  */
-public class Piece {
+public class Piece implements Comparable<Piece>{
 
     private enum Color {WHITE, BLACK}
 
@@ -32,6 +32,7 @@ public class Piece {
 
     private Color color;
     private Type type;
+    private float force;
 
     private Piece(Color color, Type type) {
         this.color = color;
@@ -68,6 +69,14 @@ public class Piece {
 
     public Type getType() {
         return type;
+    }
+
+    public void setForce(float score) {
+        this.force = score;
+    }
+
+    public float getForce() {
+        return force;
     }
 
     public char getRepresentation() {
@@ -111,6 +120,12 @@ public class Piece {
         if (type == Type.KING) n = KING_REPRESENTATION+"";
 
         return isWhite() ? n.toLowerCase() : n.toUpperCase();
+    }
+
+    @Override
+    public int compareTo(Piece that) {
+        int comoare = that.getForce() > this.getForce() ? 1 :-1;
+        return comoare;
     }
 
     private static Piece create(String color, String name) {

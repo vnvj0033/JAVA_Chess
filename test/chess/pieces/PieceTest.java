@@ -61,6 +61,14 @@ public class PieceTest {
         assertEquals(true, blackPawn.isBlack());
     }
 
+    @Test
+    void testSetForce() {
+        Piece pawn = Piece.createPawn(Piece.WHITE);
+        pawn.setForce(0.5f);
+
+        assertEquals(pawn.getForce(), 0.5);
+    }
+
     private void verifyCreation(Piece whitePiece, Piece blackPiece, Piece.Type type, char representation) {
         assertTrue(whitePiece.isWhite());
         assertEquals(type, whitePiece.getType());

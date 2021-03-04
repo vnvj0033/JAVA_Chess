@@ -3,8 +3,8 @@ package chess;
 import chess.pieces.Piece;
 import util.StringUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 체스 보드
@@ -110,6 +110,15 @@ public class Board {
             }
         }
         return score;
+    }
+
+    public List<Piece> sort(String color) {
+        return boards.stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(piece -> color.equals(piece.getColor()))
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     private int charToInt(char c) {

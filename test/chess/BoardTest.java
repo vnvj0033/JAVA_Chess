@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.StringUtil;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -65,5 +67,27 @@ public class BoardTest {
 
         sut.addPicec(2, 'c', Piece.createPawn(Piece.BLACK));
         assertEquals(sut.totalScore(Piece.BLACK), 10.5);
+    }
+
+    @Test
+    void testPieceSort() {
+        Piece pawn = Piece.createPawn(Piece.BLACK);
+        Piece knight = Piece.createKnight(Piece.BLACK);
+        Piece rook = Piece.createRook(Piece.BLACK);
+
+        pawn.setForce(1);
+        knight.setForce(2.5f);
+        rook.setForce(5);
+
+        sut.addPicec(1, 'a', knight);
+        sut.addPicec(2, 'a', pawn);
+        sut.addPicec(3, 'a', rook);
+
+        List<Piece> collection = sut.sort(Piece.BLACK);
+
+        assertEquals(collection.get(0).getRepresentation(), 'R');
+        assertEquals(collection.get(1).getRepresentation(), 'N');
+        assertEquals(collection.get(2).getRepresentation(), 'P');
+
     }
 }
