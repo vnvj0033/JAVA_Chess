@@ -25,7 +25,7 @@ public class Board {
     Board() {
         for (int row = 0; row < ROW; row++) {
             ArrayList<Piece> list = new ArrayList<>(8);
-            for (int col = 0; col < COL; col++){
+            for (int col = 0; col < COL; col++) {
                 list.add(null);
             }
             boards.add(list);
@@ -79,14 +79,13 @@ public class Board {
     }
 
     public Piece getPositionPicec(int col, char rowChar) {
-        int row = Character.getNumericValue(rowChar) - 10;
-        return boards.get(8 - col).get(row);
+        int row = charToInt(rowChar);
+        return boards.get(COL - col).get(row);
     }
 
-
     public void addPicec(int col, char rowChar, Piece piece) {
-        int row = Character.getNumericValue(rowChar) - 10;
-        boards.get(8 - col).set(row, piece);
+        int row = charToInt(rowChar);
+        boards.get(COL - col).set(row, piece);
     }
 
     public float totalScore(String color) {
@@ -96,13 +95,7 @@ public class Board {
 
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
-                Piece piece;
-
-                try {
-                    piece = boards.get(i).get(j);
-                } catch (Exception e) {
-                    continue;
-                }
+                Piece piece = boards.get(i).get(j);
                 if (piece == null) continue;
                 if (!color.equals(piece.getColor())) continue;
 
@@ -118,6 +111,10 @@ public class Board {
             }
         }
         return score;
+    }
+
+    private int charToInt(char c) {
+        return Character.getNumericValue(c) - 10;
     }
 
     private void initializeStartRow(String color, int row) {
