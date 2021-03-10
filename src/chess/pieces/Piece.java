@@ -5,7 +5,7 @@ package chess.pieces;
  *
  * @author 상엽
  */
-public class Piece implements Comparable<Piece>{
+public class Piece implements Comparable<Piece> {
 
     private enum Color {WHITE, BLACK}
 
@@ -30,6 +30,8 @@ public class Piece implements Comparable<Piece>{
     public static int blackCount = 0;
     public static int whiteCount = 0;
 
+    private PieceTypeImp pieceTypeImp;
+
     private Color color;
     private Type type;
     private float force;
@@ -37,6 +39,12 @@ public class Piece implements Comparable<Piece>{
     private Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
+        if (type == Type.PAWN) pieceTypeImp = new PawnTypeStrategy();
+        if (type == Type.KNIGHT) pieceTypeImp = new KnightTypeStrategy();
+        if (type == Type.ROOK) pieceTypeImp = new RookTypeStrategy();
+        if (type == Type.BISHOP) pieceTypeImp = new BishopTypeStrategy();
+        if (type == Type.QUEEN) pieceTypeImp = new QueenTypeStrategy();
+        if (type == Type.KING) pieceTypeImp = new KingTypeStrategy();
     }
 
     public static Piece createPawn(String color) {
@@ -80,14 +88,7 @@ public class Piece implements Comparable<Piece>{
     }
 
     public char getRepresentation() {
-        char representation = 0;
-
-        if (type == Type.PAWN) representation = PAWN_REPRESENTATION;
-        if (type == Type.KNIGHT) representation = KNIGHT_REPRESENTATION;
-        if (type == Type.ROOK) representation = ROOK_REPRESENTATION;
-        if (type == Type.BISHOP) representation = BISHOP_REPRESENTATION;
-        if (type == Type.QUEEN) representation = QUEEN_REPRESENTATION;
-        if (type == Type.KING) representation = KING_REPRESENTATION;
+        char representation = pieceTypeImp.getRepresentation();
 
         representation = isWhite() ? Character.toLowerCase(representation) : Character.toUpperCase(representation);
         return representation;
@@ -110,14 +111,7 @@ public class Piece implements Comparable<Piece>{
 
     @Override
     public String toString() {
-        String n = "";
-
-        if (type == Type.PAWN) n = PAWN_REPRESENTATION+"";
-        if (type == Type.KNIGHT) n = KNIGHT_REPRESENTATION+"";
-        if (type == Type.ROOK) n = ROOK_REPRESENTATION+"";
-        if (type == Type.BISHOP) n = BISHOP_REPRESENTATION+"";
-        if (type == Type.QUEEN) n = QUEEN_REPRESENTATION+"";
-        if (type == Type.KING) n = KING_REPRESENTATION+"";
+        String n = pieceTypeImp.getRepresentation()+"";
 
         return isWhite() ? n.toLowerCase() : n.toUpperCase();
     }
