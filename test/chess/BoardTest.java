@@ -60,13 +60,13 @@ public class BoardTest {
     @Test
     void testTotalScore(){
         sut.addPicec(4, 'a', Piece.createBlackQueen());
-        assertEquals(sut.blackTotalScore(), 9);
+        assertEquals(sut.totalScore(Piece.getBlack()), 9);
 
         sut.addPicec(3, 'c', Piece.createBlackPawn());
-        assertEquals(sut.blackTotalScore(), 10);
+        assertEquals(sut.totalScore(Piece.getBlack()), 10);
 
         sut.addPicec(2, 'c', Piece.createBlackPawn());
-        assertEquals(sut.blackTotalScore(), 10.5);
+        assertEquals(sut.totalScore(Piece.getBlack()), 10.5);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class BoardTest {
         sut.addPicec(2, 'a', pawn);
         sut.addPicec(3, 'a', rook);
 
-        List<Piece> collection = sut.blackSort();
+        List<Piece> collection = sut.sort(Piece.getBlack());
 
         assertEquals(collection.get(0).getRepresentation(), 'R');
         assertEquals(collection.get(1).getRepresentation(), 'N');

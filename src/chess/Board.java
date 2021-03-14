@@ -1,6 +1,7 @@
 package chess;
 
 import chess.pieces.Piece;
+import chess.pieces.type.PieceType;
 import util.StringUtil;
 
 import java.util.*;
@@ -88,46 +89,43 @@ public class Board {
         boards.get(COL - col).set(row, piece);
     }
 
-    public float blackTotalScore() {
+    public float totalScore(Object color) {
         float score = 0;
+        Map<Piece.Type, Double> forcesMap = loadForces();
         Boolean[] isColHavePawns = new Boolean[COL];
+
         Arrays.fill(isColHavePawns, false);
 
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COL; j++) {
                 Piece piece = boards.get(i).get(j);
                 if (piece == null) continue;
-                if (piece.isWhite()) continue;
+                if (piece.getColor() != color) continue;
 
-                switch (piece.getType()) {
-                    case PAWN -> {
-                        score += isColHavePawns[j] ? 0.5 : 1;
-                        isColHavePawns[j] = true;
-                    }
-                    case BISHOP -> score += 3;
-                    case KNIGHT -> score += 2.5;
-                    case QUEEN -> score += 9;
-                    case ROOK -> score += 5;
-                }
+                score += forcesMap.get(piece.getType());
+                if (isColHavePawns[j]) score -= 0.5;
+                if (piece.getType() == Piece.Type.PAWN)
+                    isColHavePawns[j] = true;
             }
         }
         return score;
     }
 
-    public List<Piece> whiteSort() {
-        return boards.stream()
-                .flatMap(Collection::stream)
-                .filter(Objects::nonNull)
-                .filter(Piece::isWhite)
-                .sorted()
-                .collect(Collectors.toList());
+    private Map<Piece.Type, Double> loadForces(){
+        Map<Piece.Type, Double> forcesMap = new EnumMap<>(Piece.Type.class);
+        forcesMap.put(Piece.Type.PAWN, 1d);
+        forcesMap.put(Piece.Type.BISHOP, 3d);
+        forcesMap.put(Piece.Type.KNIGHT, 2.5);
+        forcesMap.put(Piece.Type.QUEEN, 9d);
+        forcesMap.put(Piece.Type.ROOK, 5d);
+        return forcesMap;
     }
 
-    public List<Piece> blackSort() {
+    public List<Piece> sort(Object color) {
         return boards.stream()
                 .flatMap(Collection::stream)
                 .filter(Objects::nonNull)
-                .filter(Piece::isBlack)
+                .filter(it -> it.getColor() == color)
                 .sorted()
                 .collect(Collectors.toList());
     }
