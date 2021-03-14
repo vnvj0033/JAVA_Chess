@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  */
 public class Board {
 
+    private Map<Piece.Type, Double> forcesMap = null;
     private ArrayList<Piece> pieces = new ArrayList();
     private ArrayList<ArrayList<Piece>> boards = new ArrayList(8);
     private final int COL = 8;
@@ -91,7 +92,7 @@ public class Board {
 
     public float totalScore(Object color) {
         float score = 0;
-        Map<Piece.Type, Double> forcesMap = loadForces();
+        Map<Piece.Type, Double> forces = getForcesMap();
         Boolean[] isColHavePawns = new Boolean[COL];
 
         Arrays.fill(isColHavePawns, false);
@@ -102,23 +103,13 @@ public class Board {
                 if (piece == null) continue;
                 if (piece.getColor() != color) continue;
 
-                score += forcesMap.get(piece.getType());
+                score += forces.get(piece.getType());
                 if (isColHavePawns[j]) score -= 0.5;
                 if (piece.getType() == Piece.Type.PAWN)
                     isColHavePawns[j] = true;
             }
         }
         return score;
-    }
-
-    private Map<Piece.Type, Double> loadForces(){
-        Map<Piece.Type, Double> forcesMap = new EnumMap<>(Piece.Type.class);
-        forcesMap.put(Piece.Type.PAWN, 1d);
-        forcesMap.put(Piece.Type.BISHOP, 3d);
-        forcesMap.put(Piece.Type.KNIGHT, 2.5);
-        forcesMap.put(Piece.Type.QUEEN, 9d);
-        forcesMap.put(Piece.Type.ROOK, 5d);
-        return forcesMap;
     }
 
     public List<Piece> sort(Object color) {
@@ -128,6 +119,21 @@ public class Board {
                 .filter(it -> it.getColor() == color)
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    private Map<Piece.Type, Double> getForcesMap() {
+        if (forcesMap == null)
+            loadForces();
+        return forcesMap;
+    }
+
+    private void loadForces(){
+        forcesMap = new EnumMap<>(Piece.Type.class);
+        forcesMap.put(Piece.Type.PAWN, 1d);
+        forcesMap.put(Piece.Type.BISHOP, 3d);
+        forcesMap.put(Piece.Type.KNIGHT, 2.5);
+        forcesMap.put(Piece.Type.QUEEN, 9d);
+        forcesMap.put(Piece.Type.ROOK, 5d);
     }
 
     private int charToInt(char c) {
