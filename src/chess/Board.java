@@ -99,14 +99,16 @@ public class Board {
                 if (piece == null) continue;
                 if (piece.isWhite()) continue;
 
-                if (piece.getType() == Piece.Type.PAWN) {
-                    score += isColHavePawns[j] ? 0.5 : 1;
-                    isColHavePawns[j] = true;
+                switch (piece.getType()) {
+                    case PAWN -> {
+                        score += isColHavePawns[j] ? 0.5 : 1;
+                        isColHavePawns[j] = true;
+                    }
+                    case BISHOP -> score += 3;
+                    case KNIGHT -> score += 2.5;
+                    case QUEEN -> score += 9;
+                    case ROOK -> score += 5;
                 }
-                if (piece.getType() == Piece.Type.BISHOP) score += 3;
-                if (piece.getType() == Piece.Type.KNIGHT) score += 2.5;
-                if (piece.getType() == Piece.Type.QUEEN) score += 9;
-                if (piece.getType() == Piece.Type.ROOK) score += 5;
             }
         }
         return score;
