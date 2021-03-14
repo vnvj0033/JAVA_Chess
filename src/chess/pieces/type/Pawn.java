@@ -1,6 +1,6 @@
-package chess.pieces;
+package chess.pieces.type;
 
-public class PawnTypeStrategy implements PieceTypeImp {
+public class Pawn implements PieceType {
     @Override
     public char getRepresentation() {
         return 'p';

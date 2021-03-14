@@ -1,6 +1,6 @@
-package chess.pieces;
+package chess.pieces.type;
 
-public class RookTypeStrategy implements PieceTypeImp {
+public class Rook implements PieceType {
     @Override
     public char getRepresentation() {
         return 'r';

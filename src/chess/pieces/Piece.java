@@ -1,5 +1,7 @@
 package chess.pieces;
 
+import chess.pieces.type.*;
+
 /**
  * 체스에서 쫄병말이다
  *
@@ -18,19 +20,10 @@ public class Piece implements Comparable<Piece> {
     public static final char QUEEN_REPRESENTATION = 'q';
     public static final char KING_REPRESENTATION = 'k';
 
-    public final static String BLACK = "black";
-    public final static String WHITE = "white";
-
-    private final static String PAWN = "pawn";
-    private final static String KNIGHT = "knight";
-    private final static String ROOK = "rook";
-    private final static String BISHOP = "bishop";
-    private final static String QUEEN = "queen";
-    private final static String KING = "king";
     public static int blackCount = 0;
     public static int whiteCount = 0;
 
-    private PieceTypeImp pieceTypeImp;
+    private PieceType pieceTypeImp;
 
     private Color color;
     private Type type;
@@ -39,37 +32,62 @@ public class Piece implements Comparable<Piece> {
     private Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
-        if (type == Type.PAWN) pieceTypeImp = new PawnTypeStrategy();
-        if (type == Type.KNIGHT) pieceTypeImp = new KnightTypeStrategy();
-        if (type == Type.ROOK) pieceTypeImp = new RookTypeStrategy();
-        if (type == Type.BISHOP) pieceTypeImp = new BishopTypeStrategy();
-        if (type == Type.QUEEN) pieceTypeImp = new QueenTypeStrategy();
-        if (type == Type.KING) pieceTypeImp = new KingTypeStrategy();
+        if (type == Type.PAWN) pieceTypeImp = new Pawn();
+        if (type == Type.KNIGHT) pieceTypeImp = new Knight();
+        if (type == Type.ROOK) pieceTypeImp = new Rook();
+        if (type == Type.BISHOP) pieceTypeImp = new Bishop();
+        if (type == Type.QUEEN) pieceTypeImp = new Queen();
+        if (type == Type.KING) pieceTypeImp = new King();
     }
 
-    public static Piece createPawn(String color) {
-        return create(color, PAWN);
+    public static Piece createWhitePawn() {
+        return create(Color.WHITE, Type.PAWN);
     }
 
-    public static Piece createKnight(String color) {
-        return create(color, KNIGHT);
+    public static Piece createWhiteKnight() {
+        return create(Color.WHITE, Type.KNIGHT);
     }
 
-    public static Piece createRook(String color) {
-        return create(color, ROOK);
+    public static Piece createWhiteRook() {
+        return create(Color.WHITE, Type.ROOK);
     }
 
-    public static Piece createBishop(String color) {
-        return create(color, BISHOP);
+    public static Piece createWhiteBishop() {
+        return create(Color.WHITE, Type.BISHOP);
     }
 
-    public static Piece createKing(String color) {
-        return create(color, KING);
+    public static Piece createWhiteKing() {
+        return create(Color.WHITE, Type.KING);
     }
 
-    public static Piece createQueen(String color) {
-        return create(color, QUEEN);
+    public static Piece createWhiteQueen() {
+        return create(Color.WHITE, Type.QUEEN);
     }
+
+    public static Piece createBlackPawn() {
+        return create(Color.BLACK, Type.PAWN);
+    }
+
+    public static Piece createBlackKnight() {
+        return create(Color.BLACK, Type.KNIGHT);
+    }
+
+    public static Piece createBlackRook() {
+        return create(Color.BLACK, Type.ROOK);
+    }
+
+    public static Piece createBlackBishop() {
+        return create(Color.BLACK, Type.BISHOP);
+    }
+
+    public static Piece createBlackKing() {
+        return create(Color.BLACK, Type.KING);
+    }
+
+    public static Piece createBlackQueen() {
+        return create(Color.BLACK, Type.QUEEN);
+    }
+
 
     public static void resetCount() {
         Piece.blackCount = Piece.whiteCount = 0;
@@ -94,11 +112,16 @@ public class Piece implements Comparable<Piece> {
         return representation;
     }
 
-    /**
-     * Pawn의 색을 반환한다.
-     */
-    public String getColor() {
-        return isWhite() ? Piece.WHITE : Piece.BLACK;
+    public Color getColor() {
+        return isWhite() ? Color.WHITE : Color.BLACK;
+    }
+
+    public static Color getWhite(){
+        return Color.WHITE;
+    }
+
+    public static Color getBlack(){
+        return Color.BLACK;
     }
 
     public boolean isWhite() {
@@ -118,22 +141,12 @@ public class Piece implements Comparable<Piece> {
 
     @Override
     public int compareTo(Piece that) {
-        int comoare = that.getForce() > this.getForce() ? 1 :-1;
-        return comoare;
+        return that.getForce() > this.getForce() ? 1 :-1;
     }
 
-    private static Piece create(String color, String name) {
-        Piece.Color pieceColor = color.equals(Piece.WHITE) ? Color.WHITE : Color.BLACK;
-        Piece.Type pieceName = Type.PAWN;
-
-        if (name.equals(Piece.KNIGHT)) pieceName = Type.KNIGHT;
-        if (name.equals(Piece.ROOK)) pieceName = Type.ROOK;
-        if (name.equals(Piece.BISHOP)) pieceName = Type.BISHOP;
-        if (name.equals(Piece.QUEEN)) pieceName = Type.QUEEN;
-        if (name.equals(Piece.KING)) pieceName = Type.KING;
-
-        incrementCount(pieceColor);
-        return new Piece(pieceColor, pieceName);
+    private static Piece create(Piece.Color color, Type type) {
+        incrementCount(color);
+        return new Piece(color, type);
     }
 
     private static void incrementCount(Color color) {

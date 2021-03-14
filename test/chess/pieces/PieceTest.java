@@ -9,61 +9,55 @@ public class PieceTest {
 
     @Test
     void testCreate() {
-        Piece pawn = Piece.createPawn(Piece.WHITE);
-        assertEquals(pawn.getColor(), Piece.WHITE);
-
-        Piece pawn2 = Piece.createPawn(Piece.BLACK);
-        assertEquals(pawn2.getColor(), Piece.BLACK);
-
-        verifyCreation(Piece.createPawn(Piece.WHITE), Piece.createPawn(Piece.BLACK),
+        verifyCreation(Piece.createWhitePawn(), Piece.createBlackPawn(),
                 Piece.Type.PAWN, Piece.PAWN_REPRESENTATION);
-        verifyCreation(Piece.createRook(Piece.WHITE), Piece.createRook(Piece.BLACK),
+        verifyCreation(Piece.createWhiteRook(), Piece.createBlackRook(),
                 Piece.Type.ROOK, Piece.ROOK_REPRESENTATION);
-        verifyCreation(Piece.createKnight(Piece.WHITE), Piece.createKnight(Piece.BLACK),
+        verifyCreation(Piece.createWhiteKnight(), Piece.createBlackKnight(),
                 Piece.Type.KNIGHT, Piece.KNIGHT_REPRESENTATION);
-        verifyCreation(Piece.createBishop(Piece.WHITE), Piece.createBishop(Piece.BLACK),
+        verifyCreation(Piece.createWhiteBishop(), Piece.createBlackBishop(),
                 Piece.Type.BISHOP, Piece.BISHOP_REPRESENTATION);
-        verifyCreation(Piece.createQueen(Piece.WHITE), Piece.createQueen(Piece.BLACK),
+        verifyCreation(Piece.createWhiteQueen(), Piece.createBlackQueen(),
                 Piece.Type.QUEEN, Piece.QUEEN_REPRESENTATION);
-        verifyCreation(Piece.createKing(Piece.WHITE), Piece.createKing(Piece.BLACK),
+        verifyCreation(Piece.createWhiteKing(), Piece.createBlackKing(),
                 Piece.Type.KING, Piece.KING_REPRESENTATION);
     }
 
     @Test
     void testPawnColor(){
-        Piece whitePawn = Piece.createPawn(Piece.WHITE);
+        Piece whitePawn = Piece.createWhitePawn();
         assertEquals(whitePawn.toString(),"p");
 
-        Piece blackPawn = Piece.createPawn(Piece.BLACK);
+        Piece blackPawn = Piece.createBlackPawn();
         assertEquals(blackPawn.toString(),"P");
     }
 
     @Test
     void testIncrementCount() {
         Piece.resetCount();
-        Piece.createPawn(Piece.BLACK);
+        Piece.createBlackPawn();
         assertEquals(1, Piece.blackCount);
 
-        Piece.createPawn(Piece.WHITE);
+        Piece.createWhitePawn();
         assertEquals(1, Piece.whiteCount);
 
-        Piece.createPawn(Piece.BLACK);
+        Piece.createBlackPawn();
         assertEquals(2, Piece.blackCount);
     }
 
     @Test
     void testIsColor() {
-        Piece whitePawn = Piece.createPawn(Piece.WHITE);
-        Piece blackPawn = Piece.createPawn(Piece.BLACK);
+        Piece whitePawn = Piece.createWhitePawn();
+        Piece blackPawn = Piece.createBlackPawn();
 
-        assertEquals(true, whitePawn.isWhite());
+        assertTrue(whitePawn.isWhite());
 
-        assertEquals(true, blackPawn.isBlack());
+        assertTrue(blackPawn.isBlack());
     }
 
     @Test
     void testSetForce() {
-        Piece pawn = Piece.createPawn(Piece.WHITE);
+        Piece pawn = Piece.createWhitePawn();
         pawn.setForce(0.5f);
 
         assertEquals(pawn.getForce(), 0.5);

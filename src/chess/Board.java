@@ -37,15 +37,15 @@ public class Board {
 
         for (int row = 0; row < ROW; row++) {
             if (row == BLACK_START_ROW) {
-                initializeStartRow(Piece.BLACK, row);
+                initializeBlackStartRow();
             } else if (row == BLACK_PAWN_ROW) {
-                initializePawns(Piece.BLACK, row);
+                initializeBlackPawns();
             } else if (row == WHITE_PAWN_ROW) {
-                initializePawns(Piece.WHITE, row);
+                initializeWhitePawns();
             } else if (row == WHITE_START_ROW) {
-                initializeStartRow(Piece.WHITE, row);
+                initializeWhiteStartRow();
             } else {
-                initializeBlackRank(row);
+                initializeBlank(row);
             }
         }
     }
@@ -66,12 +66,12 @@ public class Board {
         return Piece.blackCount + Piece.whiteCount;
     }
 
-    public int countType(String color, Piece.Type type) {
+    public int countType(Object color, Piece.Type type) {
         int count = 0;
         for (ArrayList<Piece> board : boards) {
             for (Piece piece : board) {
                 if (piece == null) continue;
-                if (piece.getColor().equals(color) && piece.getType() == type)
+                if (piece.getColor() == color && piece.getType() == type)
                     count++;
             }
         }
@@ -88,7 +88,7 @@ public class Board {
         boards.get(COL - col).set(row, piece);
     }
 
-    public float totalScore(String color) {
+    public float blackTotalScore() {
         float score = 0;
         Boolean[] isColHavePawns = new Boolean[COL];
         Arrays.fill(isColHavePawns, false);
@@ -97,7 +97,7 @@ public class Board {
             for (int j = 0; j < COL; j++) {
                 Piece piece = boards.get(i).get(j);
                 if (piece == null) continue;
-                if (!color.equals(piece.getColor())) continue;
+                if (piece.isWhite()) continue;
 
                 if (piece.getType() == Piece.Type.PAWN) {
                     score += isColHavePawns[j] ? 0.5 : 1;
@@ -112,11 +112,20 @@ public class Board {
         return score;
     }
 
-    public List<Piece> sort(String color) {
+    public List<Piece> whiteSort() {
         return boards.stream()
                 .flatMap(Collection::stream)
                 .filter(Objects::nonNull)
-                .filter(piece -> color.equals(piece.getColor()))
+                .filter(Piece::isWhite)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public List<Piece> blackSort() {
+        return boards.stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .filter(Piece::isBlack)
                 .sorted()
                 .collect(Collectors.toList());
     }
@@ -125,30 +134,53 @@ public class Board {
         return Character.getNumericValue(c) - 10;
     }
 
-    private void initializeStartRow(String color, int row) {
+    private void initializeBlackStartRow() {
         ArrayList<Piece> rowPieces = new ArrayList();
 
-        rowPieces.add(Piece.createRook(color));
-        rowPieces.add(Piece.createKnight(color));
-        rowPieces.add(Piece.createBishop(color));
-        rowPieces.add(Piece.createQueen(color));
-        rowPieces.add(Piece.createKing(color));
-        rowPieces.add(Piece.createBishop(color));
-        rowPieces.add(Piece.createKnight(color));
-        rowPieces.add(Piece.createRook(color));
+        rowPieces.add(Piece.createBlackRook());
+        rowPieces.add(Piece.createBlackKnight());
+        rowPieces.add(Piece.createBlackBishop());
+        rowPieces.add(Piece.createBlackQueen());
+        rowPieces.add(Piece.createBlackKing());
+        rowPieces.add(Piece.createBlackBishop());
+        rowPieces.add(Piece.createBlackKnight());
+        rowPieces.add(Piece.createBlackRook());
 
-        boards.set(row, rowPieces);
+        boards.set(BLACK_START_ROW, rowPieces);
     }
 
-    private void initializePawns(String color, int row) {
+    private void initializeWhiteStartRow() {
+        ArrayList<Piece> rowPieces = new ArrayList();
+
+        rowPieces.add(Piece.createWhiteRook());
+        rowPieces.add(Piece.createWhiteKnight());
+        rowPieces.add(Piece.createWhiteBishop());
+        rowPieces.add(Piece.createWhiteQueen());
+        rowPieces.add(Piece.createWhiteKing());
+        rowPieces.add(Piece.createWhiteBishop());
+        rowPieces.add(Piece.createWhiteKnight());
+        rowPieces.add(Piece.createWhiteRook());
+
+        boards.set(WHITE_START_ROW, rowPieces);
+    }
+
+    private void initializeBlackPawns() {
         ArrayList<Piece> rowPicec = new ArrayList();
         for (int i = 0; i < 8; i++) {
-            rowPicec.add(Piece.createPawn(color));
+            rowPicec.add(Piece.createBlackPawn());
         }
-        boards.set(row, rowPicec);
+        boards.set(BLACK_PAWN_ROW, rowPicec);
     }
 
-    private void initializeBlackRank(int row) {
+    private void initializeWhitePawns() {
+        ArrayList<Piece> rowPicec = new ArrayList();
+        for (int i = 0; i < 8; i++) {
+            rowPicec.add(Piece.createWhitePawn());
+        }
+        boards.set(WHITE_PAWN_ROW, rowPicec);
+    }
+
+    private void initializeBlank(int row) {
         ArrayList<Piece> rowPicec = new ArrayList();
         for (int i = 0; i < 8; i++) {
             rowPicec.add(null);

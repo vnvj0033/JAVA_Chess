@@ -38,8 +38,8 @@ public class BoardTest {
     @Test
     void testCountType() {
         sut.initialize();
-        assertEquals(sut.countType(Piece.WHITE, Piece.Type.PAWN), 8);
-        assertEquals(sut.countType(Piece.WHITE, Piece.Type.KING), 1);
+        assertEquals(sut.countType(Piece.getWhite(), Piece.Type.PAWN), 8);
+        assertEquals(sut.countType(Piece.getWhite(), Piece.Type.KING), 1);
     }
 
     @Test
@@ -53,27 +53,27 @@ public class BoardTest {
     void testAddPicec() {
         assertNull(sut.getPositionPicec(8, 'a'));
 
-        Piece piece = Piece.createPawn(Piece.BLACK);
+        Piece piece = Piece.createBlackPawn();
         sut.addPicec(8, 'a', piece);
     }
 
     @Test
     void testTotalScore(){
-        sut.addPicec(4, 'a', Piece.createQueen(Piece.BLACK));
-        assertEquals(sut.totalScore(Piece.BLACK), 9);
+        sut.addPicec(4, 'a', Piece.createBlackQueen());
+        assertEquals(sut.blackTotalScore(), 9);
 
-        sut.addPicec(3, 'c', Piece.createPawn(Piece.BLACK));
-        assertEquals(sut.totalScore(Piece.BLACK), 10);
+        sut.addPicec(3, 'c', Piece.createBlackPawn());
+        assertEquals(sut.blackTotalScore(), 10);
 
-        sut.addPicec(2, 'c', Piece.createPawn(Piece.BLACK));
-        assertEquals(sut.totalScore(Piece.BLACK), 10.5);
+        sut.addPicec(2, 'c', Piece.createBlackPawn());
+        assertEquals(sut.blackTotalScore(), 10.5);
     }
 
     @Test
     void testPieceSort() {
-        Piece pawn = Piece.createPawn(Piece.BLACK);
-        Piece knight = Piece.createKnight(Piece.BLACK);
-        Piece rook = Piece.createRook(Piece.BLACK);
+        Piece pawn = Piece.createBlackPawn();
+        Piece knight = Piece.createBlackKnight();
+        Piece rook = Piece.createBlackRook();
 
         pawn.setForce(1);
         knight.setForce(2.5f);
@@ -83,7 +83,7 @@ public class BoardTest {
         sut.addPicec(2, 'a', pawn);
         sut.addPicec(3, 'a', rook);
 
-        List<Piece> collection = sut.sort(Piece.BLACK);
+        List<Piece> collection = sut.blackSort();
 
         assertEquals(collection.get(0).getRepresentation(), 'R');
         assertEquals(collection.get(1).getRepresentation(), 'N');

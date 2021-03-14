@@ -1,6 +1,6 @@
-package chess.pieces;
+package chess.pieces.type;
 
-public class KingTypeStrategy implements PieceTypeImp {
+public class King implements PieceType {
     @Override
     public char getRepresentation() {
         return 'k';
