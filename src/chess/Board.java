@@ -92,7 +92,6 @@ public class Board {
 
     public float totalScore(Object color) {
         float score = 0;
-        Map<Piece.Type, Double> forces = getForcesMap();
         Boolean[] isColHavePawns = new Boolean[COL];
 
         Arrays.fill(isColHavePawns, false);
@@ -103,7 +102,8 @@ public class Board {
                 if (piece == null) continue;
                 if (piece.getColor() != color) continue;
 
-                score += forces.get(piece.getType());
+                score += piece.getType().getForce();
+
                 if (isColHavePawns[j]) score -= 0.5;
                 if (piece.getType() == Piece.Type.PAWN)
                     isColHavePawns[j] = true;
@@ -119,21 +119,6 @@ public class Board {
                 .filter(it -> it.getColor() == color)
                 .sorted()
                 .collect(Collectors.toList());
-    }
-
-    private Map<Piece.Type, Double> getForcesMap() {
-        if (forcesMap == null)
-            loadForces();
-        return forcesMap;
-    }
-
-    private void loadForces(){
-        forcesMap = new EnumMap<>(Piece.Type.class);
-        forcesMap.put(Piece.Type.PAWN, 1d);
-        forcesMap.put(Piece.Type.BISHOP, 3d);
-        forcesMap.put(Piece.Type.KNIGHT, 2.5);
-        forcesMap.put(Piece.Type.QUEEN, 9d);
-        forcesMap.put(Piece.Type.ROOK, 5d);
     }
 
     private int charToInt(char c) {

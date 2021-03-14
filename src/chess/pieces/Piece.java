@@ -11,7 +11,19 @@ public class Piece implements Comparable<Piece> {
 
     private enum Color {WHITE, BLACK}
 
-    public enum Type {PAWN, KNIGHT, ROOK, BISHOP, QUEEN, KING}
+    public enum Type {
+        PAWN(1d), KNIGHT(2.5), ROOK(5d), BISHOP(3d), QUEEN(9d), KING(0d);
+        private double force;
+
+        Type(double force) {
+            this.force = force;
+        }
+
+        public double getForce() {
+            return force;
+        }
+
+    }
 
     public static final char PAWN_REPRESENTATION = 'p';
     public static final char ROOK_REPRESENTATION = 'r';
@@ -116,11 +128,11 @@ public class Piece implements Comparable<Piece> {
         return isWhite() ? Color.WHITE : Color.BLACK;
     }
 
-    public static Color getWhite(){
+    public static Color getWhite() {
         return Color.WHITE;
     }
 
-    public static Color getBlack(){
+    public static Color getBlack() {
         return Color.BLACK;
     }
 
@@ -134,14 +146,14 @@ public class Piece implements Comparable<Piece> {
 
     @Override
     public String toString() {
-        String n = pieceTypeImp.getRepresentation()+"";
+        String n = pieceTypeImp.getRepresentation() + "";
 
         return isWhite() ? n.toLowerCase() : n.toUpperCase();
     }
 
     @Override
     public int compareTo(Piece that) {
-        return that.getForce() > this.getForce() ? 1 :-1;
+        return that.getForce() > this.getForce() ? 1 : -1;
     }
 
     private static Piece create(Piece.Color color, Type type) {
