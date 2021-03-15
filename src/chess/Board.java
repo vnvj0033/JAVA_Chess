@@ -178,4 +178,26 @@ public class Board {
         }
         boards.set(row, rowPicec);
     }
+
+    public void movePiece(int col, char row, int newCol, char newRow) {
+        Piece piece = boards.get(COL - col).get(charToInt(row));
+        if (piece.getType() == Piece.Type.KING) {
+            if (kingMoveVerification(col, charToInt(row), newCol, charToInt(newRow)))
+                boards.get(COL - newCol).set(charToInt(newRow), piece);
+        }
+    }
+
+    private boolean kingMoveVerification(int col, int row, int newCol, int newRow) {
+
+        if (newCol < 0 || newCol >= COL || newRow < 0 || newRow >= ROW) {
+            return false;
+        }
+        if (col == newCol) {
+            return Math.abs(row - newRow) == 1;
+        }
+        if (row == newRow) {
+            return Math.abs(col - newCol) == 1;
+        }
+        return false;
+    }
 }

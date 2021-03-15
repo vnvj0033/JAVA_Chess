@@ -90,4 +90,15 @@ public class BoardTest {
         assertEquals(collection.get(2).getRepresentation(), 'P');
 
     }
+
+    @Test
+    void testMovePiece() {
+        Piece king = Piece.createBlackKing();
+        sut.addPicec(4, 'a', king);
+
+        sut.movePiece(4, 'a', 5, 'a');
+
+        assertEquals(sut.getPositionPicec(5, 'a').getRepresentation(), king.getRepresentation());
+
+    }
 }
