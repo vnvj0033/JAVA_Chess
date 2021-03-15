@@ -10,17 +10,17 @@ public class PieceTest {
     @Test
     void testCreate() {
         verifyCreation(Piece.createWhitePawn(), Piece.createBlackPawn(),
-                Piece.Type.PAWN, Piece.PAWN_REPRESENTATION);
+                Piece.Type.PAWN, Piece.Representation.PAWN.getRepresentation());
         verifyCreation(Piece.createWhiteRook(), Piece.createBlackRook(),
-                Piece.Type.ROOK, Piece.ROOK_REPRESENTATION);
+                Piece.Type.ROOK, Piece.Representation.ROOK.getRepresentation());
         verifyCreation(Piece.createWhiteKnight(), Piece.createBlackKnight(),
-                Piece.Type.KNIGHT, Piece.KNIGHT_REPRESENTATION);
+                Piece.Type.KNIGHT, Piece.Representation.KNIGHT.getRepresentation());
         verifyCreation(Piece.createWhiteBishop(), Piece.createBlackBishop(),
-                Piece.Type.BISHOP, Piece.BISHOP_REPRESENTATION);
+                Piece.Type.BISHOP, Piece.Representation.BISHOP.getRepresentation());
         verifyCreation(Piece.createWhiteQueen(), Piece.createBlackQueen(),
-                Piece.Type.QUEEN, Piece.QUEEN_REPRESENTATION);
+                Piece.Type.QUEEN, Piece.Representation.QUEEN.getRepresentation());
         verifyCreation(Piece.createWhiteKing(), Piece.createBlackKing(),
-                Piece.Type.KING, Piece.KING_REPRESENTATION);
+                Piece.Type.KING, Piece.Representation.KING.getRepresentation());
     }
 
     @Test

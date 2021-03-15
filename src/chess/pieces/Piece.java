@@ -25,12 +25,18 @@ public class Piece implements Comparable<Piece> {
 
     }
 
-    public static final char PAWN_REPRESENTATION = 'p';
-    public static final char ROOK_REPRESENTATION = 'r';
-    public static final char KNIGHT_REPRESENTATION = 'n';
-    public static final char BISHOP_REPRESENTATION = 'b';
-    public static final char QUEEN_REPRESENTATION = 'q';
-    public static final char KING_REPRESENTATION = 'k';
+    public enum Representation {
+        PAWN('p'), KNIGHT('n'), ROOK('r'), BISHOP('b'), QUEEN('q'), KING('k');
+        private char representation;
+
+        Representation(char representation){
+            this.representation = representation;
+        }
+
+        public char getRepresentation(){
+            return representation;
+        }
+    }
 
     public static int blackCount = 0;
     public static int whiteCount = 0;
