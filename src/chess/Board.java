@@ -1,7 +1,6 @@
 package chess;
 
 import chess.pieces.Piece;
-import chess.pieces.type.PieceType;
 import util.StringUtil;
 
 import java.util.*;
@@ -14,15 +13,14 @@ import java.util.stream.Collectors;
  */
 public class Board {
 
-    private Map<Piece.Type, Double> forcesMap = null;
     private ArrayList<Piece> pieces = new ArrayList();
     private ArrayList<ArrayList<Piece>> boards = new ArrayList(8);
     private final int COL = 8;
     private final int ROW = 8;
-    private final int WHITE_PAWN_ROW = 6;
-    private final int BLACK_PAWN_ROW = 1;
-    private final int WHITE_START_ROW = 7;
-    private final int BLACK_START_ROW = 0;
+    private final int WHITE_PAWN_ROW = 1;
+    private final int BLACK_PAWN_ROW = 6;
+    private final int WHITE_START_ROW = 0;
+    private final int BLACK_START_ROW = 7;
 
     Board() {
         for (int row = 0; row < ROW; row++) {
@@ -54,7 +52,7 @@ public class Board {
 
     public String print() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < ROW; i++) {
+        for (int i = ROW-1; i >= 0; i--) {
             for (int j = 0; j < COL; j++) {
                 builder.append(boards.get(i).get(j) == null ? "." : boards.get(i).get(j));
             }
@@ -80,14 +78,16 @@ public class Board {
         return count;
     }
 
-    public Piece getPositionPicec(int col, char rowChar) {
+    public Piece getPositionPicec(char rowChar, int col) {
+        col--;
         int row = charToInt(rowChar);
-        return boards.get(COL - col).get(row);
+        return boards.get(col).get(row);
     }
 
-    public void addPicec(int col, char rowChar, Piece piece) {
+    public void addPicec(char rowChar, int col, Piece piece) {
+        col--;
         int row = charToInt(rowChar);
-        boards.get(COL - col).set(row, piece);
+        boards.get(col).set(row, piece);
     }
 
     public float totalScore(Object color) {
@@ -179,25 +179,28 @@ public class Board {
         boards.set(row, rowPicec);
     }
 
-    public void movePiece(int col, char row, int newCol, char newRow) {
-        Piece piece = boards.get(COL - col).get(charToInt(row));
+    public void movePiece(char charRow, int col, char newCharRow, int newCol) {
+        col--;
+        newCol--;
+        int row = charToInt(charRow);
+        int newRow = charToInt(newCharRow);
+        Piece piece = boards.get(col).get(row);
         if (piece.getType() == Piece.Type.KING) {
-            if (kingMoveVerification(col, charToInt(row), newCol, charToInt(newRow)))
-                boards.get(COL - newCol).set(charToInt(newRow), piece);
+            if (kingMoveVerification(col, row, newCol, newRow)){
+                boards.get(newCol).set(newRow, piece);
+                boards.get(col).set(row, null);
+            }
+            else throw new RuntimeException("king move err");
         }
     }
 
     private boolean kingMoveVerification(int col, int row, int newCol, int newRow) {
 
-        if (newCol < 0 || newCol >= COL || newRow < 0 || newRow >= ROW) {
+        if (newCol < 0 || newCol >= COL || newRow < 0 || newRow >= ROW)
             return false;
-        }
-        if (col == newCol) {
-            return Math.abs(row - newRow) == 1;
-        }
-        if (row == newRow) {
-            return Math.abs(col - newCol) == 1;
-        }
+        if (col == newCol) return Math.abs(row - newRow) == 1;
+        if (row == newRow) return Math.abs(col - newCol) == 1;
+
         return false;
     }
 }

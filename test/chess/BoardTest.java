@@ -45,27 +45,27 @@ public class BoardTest {
     @Test
     void testPicecPosition() {
         sut.initialize();
-        assertEquals(sut.getPositionPicec(8, 'a').getRepresentation(), 'R');
-        assertEquals(sut.getPositionPicec(1, 'e').getRepresentation(), 'k');
+        assertEquals(sut.getPositionPicec('a', 8).getRepresentation(), 'R');
+        assertEquals(sut.getPositionPicec('e', 1).getRepresentation(), 'k');
     }
 
     @Test
     void testAddPicec() {
-        assertNull(sut.getPositionPicec(8, 'a'));
+        assertNull(sut.getPositionPicec('a', 8));
 
         Piece piece = Piece.createBlackPawn();
-        sut.addPicec(8, 'a', piece);
+        sut.addPicec('a', 8, piece);
     }
 
     @Test
     void testTotalScore(){
-        sut.addPicec(4, 'a', Piece.createBlackQueen());
+        sut.addPicec('a', 4, Piece.createBlackQueen());
         assertEquals(sut.totalScore(Piece.getBlack()), 9);
 
-        sut.addPicec(3, 'c', Piece.createBlackPawn());
+        sut.addPicec('c', 3, Piece.createBlackPawn());
         assertEquals(sut.totalScore(Piece.getBlack()), 10);
 
-        sut.addPicec(2, 'c', Piece.createBlackPawn());
+        sut.addPicec('c', 2, Piece.createBlackPawn());
         assertEquals(sut.totalScore(Piece.getBlack()), 10.5);
     }
 
@@ -79,9 +79,9 @@ public class BoardTest {
         knight.setForce(2.5f);
         rook.setForce(5);
 
-        sut.addPicec(1, 'a', knight);
-        sut.addPicec(2, 'a', pawn);
-        sut.addPicec(3, 'a', rook);
+        sut.addPicec('a', 1, knight);
+        sut.addPicec('a', 2, pawn);
+        sut.addPicec('a', 3, rook);
 
         List<Piece> collection = sut.sort(Piece.getBlack());
 
@@ -94,11 +94,11 @@ public class BoardTest {
     @Test
     void testMovePiece() {
         Piece king = Piece.createBlackKing();
-        sut.addPicec(4, 'a', king);
+        sut.addPicec('a', 4, king);
 
-        sut.movePiece(4, 'a', 5, 'a');
+        sut.movePiece('a', 4, 'a', 5);
 
-        assertEquals(sut.getPositionPicec(5, 'a').getRepresentation(), king.getRepresentation());
-
+        assertNull(sut.getPositionPicec('a', 4));
+        assertEquals(sut.getPositionPicec('a', 5).getRepresentation(), king.getRepresentation());
     }
 }
