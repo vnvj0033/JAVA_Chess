@@ -1,5 +1,7 @@
 package chess;
 
+import chess.pieces.King;
+import chess.pieces.Pawn;
 import chess.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,8 +40,8 @@ public class BoardTest {
     @Test
     void testCountType() {
         sut.initialize();
-        assertEquals(sut.countType(Piece.getWhite(), Piece.Type.PAWN), 8);
-        assertEquals(sut.countType(Piece.getWhite(), Piece.Type.KING), 1);
+        assertEquals(sut.countType(Piece.getWhite(), Pawn.class), 8);
+        assertEquals(sut.countType(Piece.getWhite(), King.class), 1);
     }
 
     @Test
@@ -53,7 +55,7 @@ public class BoardTest {
     void testAddPicec() {
         assertNull(sut.getGamePositionPicec('a', 8));
 
-        Piece piece = Piece.createBlackPawn();
+        Piece piece = Pawn.createBlack();
         sut.addPicec('a', 8, piece);
     }
 }

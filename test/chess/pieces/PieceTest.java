@@ -8,46 +8,46 @@ public class PieceTest {
 
     @Test
     void testCreate() {
-        verifyCreation(Piece.createWhitePawn(), Piece.createBlackPawn(),
-                Piece.Type.PAWN, Piece.Representation.PAWN.getRepresentation());
-        verifyCreation(Piece.createWhiteRook(), Piece.createBlackRook(),
-                Piece.Type.ROOK, Piece.Representation.ROOK.getRepresentation());
-        verifyCreation(Piece.createWhiteKnight(), Piece.createBlackKnight(),
-                Piece.Type.KNIGHT, Piece.Representation.KNIGHT.getRepresentation());
-        verifyCreation(Piece.createWhiteBishop(), Piece.createBlackBishop(),
-                Piece.Type.BISHOP, Piece.Representation.BISHOP.getRepresentation());
-        verifyCreation(Piece.createWhiteQueen(), Piece.createBlackQueen(),
-                Piece.Type.QUEEN, Piece.Representation.QUEEN.getRepresentation());
-        verifyCreation(Piece.createWhiteKing(), Piece.createBlackKing(),
-                Piece.Type.KING, Piece.Representation.KING.getRepresentation());
+        verifyCreation(Pawn.createWhite(), Pawn.createBlack(),
+                Pawn.class, 'p');
+        verifyCreation(Rook.createWhite(), Rook.createBlack(),
+                Rook.class, 'r');
+        verifyCreation(Knight.createWhite(), Knight.createBlack(),
+                Knight.class, 'n');
+        verifyCreation(Bishop.createWhite(), Bishop.createBlack(),
+                Bishop.class, 'b');
+        verifyCreation(Queen.createWhite(), Queen.createBlack(),
+                Queen.class, 'q');
+        verifyCreation(King.createWhite(), King.createBlack(),
+                King.class, 'k');
     }
 
     @Test
     void testPawnColor(){
-        Piece whitePawn = Piece.createWhitePawn();
+        Piece whitePawn = Pawn.createWhite();
         assertEquals(whitePawn.toString(),"p");
 
-        Piece blackPawn = Piece.createBlackPawn();
+        Piece blackPawn = Pawn.createBlack();
         assertEquals(blackPawn.toString(),"P");
     }
 
     @Test
     void testIncrementCount() {
         Piece.resetCount();
-        Piece.createBlackPawn();
+        Pawn.createBlack();
         assertEquals(1, Piece.blackCount);
 
-        Piece.createWhitePawn();
+        Pawn.createWhite();
         assertEquals(1, Piece.whiteCount);
 
-        Piece.createBlackPawn();
+        Pawn.createBlack();
         assertEquals(2, Piece.blackCount);
     }
 
     @Test
     void testIsColor() {
-        Piece whitePawn = Piece.createWhitePawn();
-        Piece blackPawn = Piece.createBlackPawn();
+        Piece whitePawn = Pawn.createWhite();
+        Piece blackPawn = Pawn.createBlack();
 
         assertTrue(whitePawn.isWhite());
 
@@ -56,35 +56,35 @@ public class PieceTest {
 
     @Test
     void testSetForce() {
-        Piece pawn = Piece.createWhitePawn();
+        Piece pawn = Pawn.createWhite();
         pawn.setForce(0.5f);
 
         assertEquals(pawn.getForce(), 0.5);
     }
 
-    private void verifyCreation(Piece whitePiece, Piece blackPiece, Piece.Type type, char representation) {
+    private void verifyCreation(Piece whitePiece, Piece blackPiece, Class type, char representation) {
         assertTrue(whitePiece.isWhite());
-        assertEquals(type, whitePiece.getType());
+        assertEquals(type, whitePiece.getClass());
         assertEquals(representation, whitePiece.getRepresentation());
 
         assertTrue(blackPiece.isBlack());
-        assertEquals(type, blackPiece.getType());
+        assertEquals(type, blackPiece.getClass());
         assertEquals(Character.toUpperCase(representation), blackPiece.getRepresentation());
     }
 
 
 
-    @Test
-    void testMovePiece() {
-        Piece king = Piece.createBlackKing();
-
-        assertTrue(king.move('a', 4, 'a', 5));
-        assertTrue(king.move('a', 4, 'b', 4));
-
-        Piece queen = Piece.createBlackQueen();
-
-        assertTrue(queen.move('a', 1, 'a', 8));
-        assertTrue(queen.move('a', 1, 'h', 1));
-        assertTrue(queen.move('a', 1, 'h', 8));
-    }
+//    @Test
+//    void testMovePiece() {
+//        Piece king = King.createBlack();
+//
+//        assertTrue(king.move('a', 4, 'a', 5));
+//        assertTrue(king.move('a', 4, 'b', 4));
+//
+//        Piece queen = Queen.createBlack();
+//
+//        assertTrue(queen.move('a', 1, 'a', 8));
+//        assertTrue(queen.move('a', 1, 'h', 1));
+//        assertTrue(queen.move('a', 1, 'h', 8));
+//    }
 }

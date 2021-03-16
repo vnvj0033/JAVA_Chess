@@ -1,7 +1,6 @@
 package chess;
 
-import chess.Game;
-import chess.pieces.Piece;
+import chess.pieces.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,13 +13,13 @@ public class GameTest {
     void testTotalScore(){
         Game game = new Game();
 
-        game.getBoard().addPicec('a', 4, Piece.createBlackQueen());
+        game.getBoard().addPicec('a', 4, Queen.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 9);
 
-        game.getBoard().addPicec('c', 3, Piece.createBlackPawn());
+        game.getBoard().addPicec('c', 3, Pawn.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 10);
 
-        game.getBoard().addPicec('c', 2, Piece.createBlackPawn());
+        game.getBoard().addPicec('c', 2, Pawn.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 10.5);
     }
 
@@ -28,9 +27,9 @@ public class GameTest {
     void testPieceSort() {
         Game game = new Game();
 
-        Piece pawn = Piece.createBlackPawn();
-        Piece knight = Piece.createBlackKnight();
-        Piece rook = Piece.createBlackRook();
+        Piece pawn = Pawn.createBlack();
+        Piece knight = Knight.createBlack();
+        Piece rook = Rook.createBlack();
 
         pawn.setForce(1);
         knight.setForce(2.5f);

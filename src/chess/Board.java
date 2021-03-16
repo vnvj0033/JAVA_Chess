@@ -1,6 +1,6 @@
 package chess;
 
-import chess.pieces.Piece;
+import chess.pieces.*;
 import util.StringUtil;
 
 import java.util.*;
@@ -66,12 +66,12 @@ public class Board {
         return Piece.blackCount + Piece.whiteCount;
     }
 
-    public int countType(Object color, Piece.Type type) {
+    public int countType(Object color, Class type) {
         int count = 0;
         for (ArrayList<Piece> board : boards) {
             for (Piece piece : board) {
                 if (piece == null) continue;
-                if (piece.getColor() == color && piece.getType() == type)
+                if (piece.getColor() == color && piece.getClass() == type)
                     count++;
             }
         }
@@ -105,14 +105,14 @@ public class Board {
     private void initializeBlackStartRow() {
         ArrayList<Piece> rowPieces = new ArrayList();
 
-        rowPieces.add(Piece.createBlackRook());
-        rowPieces.add(Piece.createBlackKnight());
-        rowPieces.add(Piece.createBlackBishop());
-        rowPieces.add(Piece.createBlackQueen());
-        rowPieces.add(Piece.createBlackKing());
-        rowPieces.add(Piece.createBlackBishop());
-        rowPieces.add(Piece.createBlackKnight());
-        rowPieces.add(Piece.createBlackRook());
+        rowPieces.add(Rook.createBlack());
+        rowPieces.add(Knight.createBlack());
+        rowPieces.add(Bishop.createBlack());
+        rowPieces.add(Queen.createBlack());
+        rowPieces.add(King.createBlack());
+        rowPieces.add(Bishop.createBlack());
+        rowPieces.add(Knight.createBlack());
+        rowPieces.add(Rook.createBlack());
 
         boards.set(BLACK_START_ROW, rowPieces);
     }
@@ -120,14 +120,14 @@ public class Board {
     private void initializeWhiteStartRow() {
         ArrayList<Piece> rowPieces = new ArrayList();
 
-        rowPieces.add(Piece.createWhiteRook());
-        rowPieces.add(Piece.createWhiteKnight());
-        rowPieces.add(Piece.createWhiteBishop());
-        rowPieces.add(Piece.createWhiteQueen());
-        rowPieces.add(Piece.createWhiteKing());
-        rowPieces.add(Piece.createWhiteBishop());
-        rowPieces.add(Piece.createWhiteKnight());
-        rowPieces.add(Piece.createWhiteRook());
+        rowPieces.add(Rook.createWhite());
+        rowPieces.add(Knight.createWhite());
+        rowPieces.add(Bishop.createWhite());
+        rowPieces.add(Queen.createWhite());
+        rowPieces.add(King.createWhite());
+        rowPieces.add(Bishop.createWhite());
+        rowPieces.add(Knight.createWhite());
+        rowPieces.add(Rook.createWhite());
 
         boards.set(WHITE_START_ROW, rowPieces);
     }
@@ -135,7 +135,7 @@ public class Board {
     private void initializeBlackPawns() {
         ArrayList<Piece> rowPicec = new ArrayList();
         for (int i = 0; i < COL; i++) {
-            rowPicec.add(Piece.createBlackPawn());
+            rowPicec.add(Pawn.createBlack());
         }
         boards.set(BLACK_PAWN_ROW, rowPicec);
     }
@@ -143,7 +143,7 @@ public class Board {
     private void initializeWhitePawns() {
         ArrayList<Piece> rowPicec = new ArrayList();
         for (int i = 0; i < COL; i++) {
-            rowPicec.add(Piece.createWhitePawn());
+            rowPicec.add(Pawn.createWhite());
         }
         boards.set(WHITE_PAWN_ROW, rowPicec);
     }
