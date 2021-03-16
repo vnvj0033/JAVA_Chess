@@ -2,8 +2,7 @@ package chess.pieces;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PieceTest {
 
@@ -71,5 +70,21 @@ public class PieceTest {
         assertTrue(blackPiece.isBlack());
         assertEquals(type, blackPiece.getType());
         assertEquals(Character.toUpperCase(representation), blackPiece.getRepresentation());
+    }
+
+
+
+    @Test
+    void testMovePiece() {
+        Piece king = Piece.createBlackKing();
+
+        assertTrue(king.move('a', 4, 'a', 5));
+        assertTrue(king.move('a', 4, 'b', 4));
+
+        Piece queen = Piece.createBlackQueen();
+
+        assertTrue(queen.move('a', 1, 'a', 8));
+        assertTrue(queen.move('a', 1, 'h', 1));
+        assertTrue(queen.move('a', 1, 'h', 8));
     }
 }

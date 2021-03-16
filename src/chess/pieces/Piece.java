@@ -1,5 +1,7 @@
 package chess.pieces;
 
+import chess.Board;
+import chess.CharUtill;
 import chess.pieces.type.*;
 
 /**
@@ -148,6 +150,45 @@ public class Piece implements Comparable<Piece> {
 
     public boolean isBlack() {
         return color == Color.BLACK;
+    }
+
+    public boolean move(char charRow, int col, char newCharRow, int newCol) {
+        int row = CharUtill.chessCharToInt(charRow);
+        int newRow = CharUtill.chessCharToInt(newCharRow);
+        col--;
+        newCol--;
+
+        System.out.println(row + " " + col + " " + newRow + " " + newCol);
+
+        if (newCol < 0 || newCol >= Board.COL || newRow < 0 || newRow >= Board.ROW)
+            return false;
+        if (col == newCol && row == newRow)
+            return false;
+
+        boolean result = false;
+
+        if (getType() == Type.KING)
+            result = kingMoveVerification(col, row, newCol, newRow);
+        if (getType() == Type.QUEEN)
+            result = queenMoveVerification(col, row, newCol, newRow);
+
+        return result;
+    }
+
+    private boolean kingMoveVerification(int col, int row, int newCol, int newRow) {
+        if (col == newCol) return Math.abs(row - newRow) == 1;
+        if (row == newRow) return Math.abs(col - newCol) == 1;
+
+        return false;
+    }
+
+    private boolean queenMoveVerification(int col, int row, int newCol, int newRow) {
+        if (col == newCol || row == newRow)
+            return true;
+        if (Math.abs(newCol - col) == Math.abs(newRow - row))
+            return true;
+
+        return false;
     }
 
     @Override
