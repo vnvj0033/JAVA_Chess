@@ -6,22 +6,23 @@ import chess.CharUtill;
 import java.util.ArrayList;
 
 public class King extends Piece {
-    private King(Piece.Color color, char representation){
+    private King(Piece.Color color, char representation) {
         super(color);
         setRepresentation(representation);
         setForce(0f);
     }
 
-    public static King createWhite(){
+    public static King createWhite() {
         King piece = new King(Color.WHITE, 'k');
         return piece;
     }
 
-    public static King createBlack(){
+    public static King createBlack() {
         King piece = new King(Color.BLACK, 'K');
         return piece;
     }
 
+    @Override
     public int[][] getPossibleMoves(char charRow, int col) {
         int row = CharUtill.chessCharToInt(charRow);
         int newCol, newRow;
@@ -47,10 +48,9 @@ public class King extends Piece {
                 continue;
             if (col == newCol && row == newRow)
                 continue;
-            moves.add(new int[]{newCol+1, newRow+1});
+            moves.add(new int[]{newCol, newRow});
 
         }
         return moves.toArray(int[][]::new);
     }
-
 }
