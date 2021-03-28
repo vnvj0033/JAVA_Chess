@@ -8,12 +8,10 @@ public class Bishop extends Piece {
     }
 
     public static Bishop createWhite(){
-        Bishop piece = new Bishop(Color.WHITE, 'b');
-        return piece;
+        return new Bishop(Color.WHITE, 'b');
     }
 
     public static Bishop createBlack(){
-        Bishop piece = new Bishop(Color.BLACK, 'B');
-        return piece;
+        return new Bishop(Color.BLACK, 'B');
     }
 }

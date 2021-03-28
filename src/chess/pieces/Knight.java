@@ -8,12 +8,10 @@ public class Knight extends Piece {
     }
 
     public static Knight createWhite(){
-        Knight piece = new Knight(Color.WHITE, 'n');
-        return piece;
+        return new Knight(Color.WHITE, 'n');
     }
 
     public static Knight createBlack(){
-        Knight piece = new Knight(Color.BLACK, 'N');
-        return piece;
+        return new Knight(Color.BLACK, 'N');
     }
 }

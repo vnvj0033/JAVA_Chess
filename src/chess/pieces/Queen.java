@@ -15,21 +15,18 @@ public class Queen extends Piece {
     }
 
     public static Queen createWhite() {
-        Queen piece = new Queen(Color.WHITE, 'q');
-        return piece;
+        return new Queen(Color.WHITE, 'q');
     }
 
     public static Queen createBlack() {
-        Queen piece = new Queen(Color.BLACK, 'Q');
-        return piece;
+        return new Queen(Color.BLACK, 'Q');
     }
 
     @Override
     public int[][] getPossibleMoves(char charRow, int col) {
         int row = CharUtill.chessCharToInt(charRow);
-        col--;
 
-        ArrayList<int[]> moves = recursionMove(col, row);
+        ArrayList<int[]> moves = recursionMove(--col, row);
 
         return moves.toArray(int[][]::new);
     }

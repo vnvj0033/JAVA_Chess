@@ -2,20 +2,20 @@ package chess;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CharacterTest {
 
     @Test
     void testWhitespace() {
-        assertEquals(Character.isWhitespace('\n'), true);
-        assertEquals(Character.isWhitespace('\t'), true);
-        assertEquals(Character.isWhitespace(' '), true);
+        assertTrue(Character.isWhitespace('\n'));
+        assertTrue(Character.isWhitespace('\t'));
+        assertTrue(Character.isWhitespace(' '));
     }
 
     @Test
     void testIdentifier() {
-        assertEquals(Character.isJavaIdentifierPart('^'), false);
+        assertFalse(Character.isJavaIdentifierPart('^'));
     }
 
 

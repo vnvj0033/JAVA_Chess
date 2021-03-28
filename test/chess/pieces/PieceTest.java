@@ -71,20 +71,4 @@ public class PieceTest {
         assertEquals(type, blackPiece.getClass());
         assertEquals(Character.toUpperCase(representation), blackPiece.getRepresentation());
     }
-
-
-
-//    @Test
-//    void testMovePiece() {
-//        Piece king = King.createBlack();
-//
-//        assertTrue(king.move('a', 4, 'a', 5));
-//        assertTrue(king.move('a', 4, 'b', 4));
-//
-//        Piece queen = Queen.createBlack();
-//
-//        assertTrue(queen.move('a', 1, 'a', 8));
-//        assertTrue(queen.move('a', 1, 'h', 1));
-//        assertTrue(queen.move('a', 1, 'h', 8));
-//    }
 }

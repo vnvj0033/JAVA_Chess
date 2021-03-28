@@ -8,12 +8,10 @@ public class Pawn extends Piece {
     }
 
     public static Pawn createWhite(){
-        Pawn piece = new Pawn(Color.WHITE, 'p');
-        return piece;
+        return new Pawn(Color.WHITE, 'p');
     }
 
     public static Pawn createBlack(){
-        Pawn piece = new Pawn(Color.BLACK, 'P');
-        return piece;
+        return new Pawn(Color.BLACK, 'P');
     }
 }

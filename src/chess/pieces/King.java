@@ -13,13 +13,11 @@ public class King extends Piece {
     }
 
     public static King createWhite() {
-        King piece = new King(Color.WHITE, 'k');
-        return piece;
+        return new King(Color.WHITE, 'k');
     }
 
     public static King createBlack() {
-        King piece = new King(Color.BLACK, 'K');
-        return piece;
+        return new King(Color.BLACK, 'K');
     }
 
     @Override

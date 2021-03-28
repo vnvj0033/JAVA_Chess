@@ -8,12 +8,10 @@ public class Rook extends Piece {
     }
 
     public static Rook createWhite(){
-        Rook piece = new Rook(Color.WHITE, 'r');
-        return piece;
+        return new Rook(Color.WHITE, 'r');
     }
 
     public static Rook createBlack(){
-        Rook piece = new Rook(Color.BLACK, 'R');
-        return piece;
+        return new Rook(Color.BLACK, 'R');
     }
 }
