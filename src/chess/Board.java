@@ -15,7 +15,7 @@ public class Board {
     public final static int COL = 8;
     public final static int ROW = 8;
 
-    private ArrayList<ArrayList<Piece>> boards = new ArrayList(8);
+    private Piece[][] boards = new Piece[ROW][COL];
 
     private final int WHITE_PAWN_ROW = 1;
     private final int BLACK_PAWN_ROW = 6;
@@ -23,13 +23,9 @@ public class Board {
     private final int BLACK_START_ROW = 7;
 
     public Board() {
-        for (int row = 0; row < ROW; row++) {
-            ArrayList<Piece> list = new ArrayList<>(8);
-            for (int col = 0; col < COL; col++) {
-                list.add(null);
-            }
-            boards.add(list);
-        }
+        for (int row = 0; row < ROW; row++)
+            for (int col = 0; col < COL; col++)
+                boards[row][col] = null;
     }
 
     public void initialize() {
@@ -52,13 +48,12 @@ public class Board {
 
     public String print() {
         StringBuilder builder = new StringBuilder();
+
         for (int row = ROW - 1; row >= 0; row--) {
-            for (int col = 0; col < COL; col++) {
-                builder.append(boards.get(row).get(col) == null ? "." : boards.get(row).get(col));
-            }
+            for (int col = 0; col < COL; col++)
+                builder.append(boards[row][col] == null ? "." : boards[row][col]);
             builder.append(StringUtil.NEW_LINE);
         }
-
         return builder.toString();
     }
 
@@ -68,92 +63,80 @@ public class Board {
 
     public int countType(Object color, Class type) {
         int count = 0;
-        for (ArrayList<Piece> board : boards) {
+        for (Piece[] board : boards)
             for (Piece piece : board) {
                 if (piece == null) continue;
                 if (piece.getColor() == color && piece.getClass() == type)
                     count++;
             }
-        }
         return count;
     }
 
-    public Piece getGamePositionPicec(char rowChar, int col) {
+    public Piece getGamePositionPiece(char rowChar, int col) {
         col--;
         int row = CharUtill.chessCharToInt(rowChar);
         return get(row, col);
     }
 
-    public ArrayList<ArrayList<Piece>> getBoards() {
+    public Piece[][] getBoards() {
         return boards;
     }
 
     public Piece get(int row, int col) {
-        return boards.get(col).get(row);
+        return boards[col][row];
     }
 
-    public void put(int row, int col, Piece piece){
-        boards.get(col).set(row, piece);
+    public void put(int row, int col, Piece piece) {
+        boards[col][row] = piece;
     }
 
-    public void addPicec(char rowChar, int col, Piece piece) {
+    public void addPiece(char rowChar, int col, Piece piece) {
         col--;
         int row = CharUtill.chessCharToInt(rowChar);
         put(row, col, piece);
     }
 
     private void initializeBlackStartRow() {
-        ArrayList<Piece> rowPieces = new ArrayList();
+        Piece[] rowPieces = boards[BLACK_START_ROW];
 
-        rowPieces.add(Rook.createBlack());
-        rowPieces.add(Knight.createBlack());
-        rowPieces.add(Bishop.createBlack());
-        rowPieces.add(Queen.createBlack());
-        rowPieces.add(King.createBlack());
-        rowPieces.add(Bishop.createBlack());
-        rowPieces.add(Knight.createBlack());
-        rowPieces.add(Rook.createBlack());
-
-        boards.set(BLACK_START_ROW, rowPieces);
+        rowPieces[0] = Rook.createBlack();
+        rowPieces[1] = Knight.createBlack();
+        rowPieces[2] = Bishop.createBlack();
+        rowPieces[3] = Queen.createBlack();
+        rowPieces[4] = King.createBlack();
+        rowPieces[5] = Bishop.createBlack();
+        rowPieces[6] = Knight.createBlack();
+        rowPieces[7] = Rook.createBlack();
     }
 
     private void initializeWhiteStartRow() {
-        ArrayList<Piece> rowPieces = new ArrayList();
+        Piece[] rowPieces = boards[WHITE_START_ROW];
 
-        rowPieces.add(Rook.createWhite());
-        rowPieces.add(Knight.createWhite());
-        rowPieces.add(Bishop.createWhite());
-        rowPieces.add(Queen.createWhite());
-        rowPieces.add(King.createWhite());
-        rowPieces.add(Bishop.createWhite());
-        rowPieces.add(Knight.createWhite());
-        rowPieces.add(Rook.createWhite());
-
-        boards.set(WHITE_START_ROW, rowPieces);
+        rowPieces[0] = Rook.createWhite();
+        rowPieces[1] = Knight.createWhite();
+        rowPieces[2] = Bishop.createWhite();
+        rowPieces[3] = Queen.createWhite();
+        rowPieces[4] = King.createWhite();
+        rowPieces[5] = Bishop.createWhite();
+        rowPieces[6] = Knight.createWhite();
+        rowPieces[7] = Rook.createWhite();
     }
 
     private void initializeBlackPawns() {
-        ArrayList<Piece> rowPicec = new ArrayList();
-        for (int i = 0; i < COL; i++) {
-            rowPicec.add(Pawn.createBlack());
-        }
-        boards.set(BLACK_PAWN_ROW, rowPicec);
+        Piece[] rowPiece = boards[BLACK_PAWN_ROW];
+        for (int i = 0; i < COL; i++)
+            rowPiece[i] = Pawn.createBlack();
     }
 
     private void initializeWhitePawns() {
-        ArrayList<Piece> rowPicec = new ArrayList();
-        for (int i = 0; i < COL; i++) {
-            rowPicec.add(Pawn.createWhite());
-        }
-        boards.set(WHITE_PAWN_ROW, rowPicec);
+        Piece[] rowPiece = boards[WHITE_PAWN_ROW];
+        for (int i = 0; i < COL; i++)
+            rowPiece[i] = Pawn.createWhite();
     }
 
     private void initializeBlank(int row) {
-        ArrayList<Piece> rowPicec = new ArrayList();
-        for (int i = 0; i < COL; i++) {
-            rowPicec.add(null);
-        }
-        boards.set(row, rowPicec);
+        Piece[] rowPiece = boards[row];
+        for (int i = 0; i < COL; i++)
+            rowPiece[i] = null;
     }
-
 }

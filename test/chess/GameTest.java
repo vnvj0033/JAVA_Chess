@@ -13,13 +13,13 @@ public class GameTest {
     void testTotalScore(){
         Game game = new Game();
 
-        game.getBoard().addPicec('a', 4, Queen.createBlack());
+        game.getBoard().addPiece('a', 4, Queen.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 9);
 
-        game.getBoard().addPicec('c', 3, Pawn.createBlack());
+        game.getBoard().addPiece('c', 3, Pawn.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 10);
 
-        game.getBoard().addPicec('c', 2, Pawn.createBlack());
+        game.getBoard().addPiece('c', 2, Pawn.createBlack());
         assertEquals(game.totalScore(Piece.getBlack()), 10.5);
     }
 
@@ -35,9 +35,9 @@ public class GameTest {
         knight.setForce(2.5f);
         rook.setForce(5);
 
-        game.getBoard().addPicec('a', 1, knight);
-        game.getBoard().addPicec('a', 2, pawn);
-        game.getBoard().addPicec('a', 3, rook);
+        game.getBoard().addPiece('a', 1, knight);
+        game.getBoard().addPiece('a', 2, pawn);
+        game.getBoard().addPiece('a', 3, rook);
 
         List<Piece> collection = game.sort(Piece.getBlack());
 

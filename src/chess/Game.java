@@ -3,10 +3,7 @@ package chess;
 import chess.pieces.Pawn;
 import chess.pieces.Piece;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game {
@@ -40,8 +37,12 @@ public class Game {
     }
 
     public List<Piece> sort(Object color) {
-        return board.getBoards().stream()
-                .flatMap(Collection::stream)
+
+        ArrayList<Piece> pieceList = new ArrayList<>();
+        for (Piece[] pieces : board.getBoards())
+            pieceList.addAll(Arrays.asList(pieces));
+
+        return pieceList.stream()
                 .filter(Objects::nonNull)
                 .filter(it -> it.getColor() == color)
                 .sorted()

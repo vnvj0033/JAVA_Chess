@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.StringUtil;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -47,15 +45,15 @@ public class BoardTest {
     @Test
     void testPicecPosition() {
         sut.initialize();
-        assertEquals(sut.getGamePositionPicec('a', 8).getRepresentation(), 'R');
-        assertEquals(sut.getGamePositionPicec('e', 1).getRepresentation(), 'k');
+        assertEquals(sut.getGamePositionPiece('a', 8).getRepresentation(), 'R');
+        assertEquals(sut.getGamePositionPiece('e', 1).getRepresentation(), 'k');
     }
 
     @Test
     void testAddPicec() {
-        assertNull(sut.getGamePositionPicec('a', 8));
+        assertNull(sut.getGamePositionPiece('a', 8));
 
         Piece piece = Pawn.createBlack();
-        sut.addPicec('a', 8, piece);
+        sut.addPiece('a', 8, piece);
     }
 }
