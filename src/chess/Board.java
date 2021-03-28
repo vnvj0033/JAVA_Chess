@@ -4,13 +4,14 @@ import chess.pieces.*;
 import util.StringUtil;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * 체스 보드
  *
  * @author 유상엽
  */
-public class Board {
+public class Board implements Iterable<Piece> {
 
     public final static int COL = 8;
     public final static int ROW = 8;
@@ -138,5 +139,15 @@ public class Board {
         Piece[] rowPiece = boards[row];
         for (int i = 0; i < COL; i++)
             rowPiece[i] = null;
+    }
+
+    @Override
+    public Iterator<Piece> iterator() {
+
+        ArrayList<Piece> pieceList = new ArrayList<>();
+        for (Piece[] pieces : boards)
+            pieceList.addAll(Arrays.asList(pieces));
+
+        return pieceList.iterator();
     }
 }

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.StringUtil;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -55,5 +57,17 @@ public class BoardTest {
 
         Piece piece = Pawn.createBlack();
         sut.addPiece('a', 8, piece);
+    }
+
+    @Test
+    void testIterate() {
+        sut.initialize();
+        Iterator<Piece> iterator = sut.iterator();
+
+        assertEquals(sut.get(0, 0).getRepresentation(), iterator.next().getRepresentation());
+        assertEquals(sut.get(0, 1).getRepresentation(), iterator.next().getRepresentation());
+        assertEquals(sut.get(0, 2).getRepresentation(), iterator.next().getRepresentation());
+        assertEquals(sut.get(0, 3).getRepresentation(), iterator.next().getRepresentation());
+
     }
 }
