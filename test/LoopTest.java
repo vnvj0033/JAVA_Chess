@@ -41,11 +41,28 @@ public class LoopTest {
         int n = 5;
         int result = 1;
 
-        while (true){
+        while (true) {
             result *= n--;
             if (n < 1) break;
         }
 
         assertEquals(result, 120);
+    }
+
+
+    @Test
+    void testContinue() {
+        int n = 12;
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 1; i <= n; i++) {
+            if (i != 1) builder.append(" ");
+            builder.append(i);
+            if (i % 5 != 0)
+                continue;
+            builder.append("*");
+        }
+
+        System.out.println(builder.toString());
     }
 }
