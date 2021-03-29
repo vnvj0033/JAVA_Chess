@@ -49,10 +49,12 @@ public class LoopTest {
         assertEquals(result, 120);
     }
 
-
     @Test
     void testContinue() {
-        int n = 12;
+        System.out.println(fiveCountAddStar(12));
+    }
+
+    String fiveCountAddStar(int n) {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 1; i <= n; i++) {
@@ -62,7 +64,6 @@ public class LoopTest {
                 continue;
             builder.append("*");
         }
-
-        System.out.println(builder.toString());
+        return builder.toString();
     }
 }
