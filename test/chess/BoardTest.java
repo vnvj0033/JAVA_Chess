@@ -34,6 +34,7 @@ public class BoardTest {
         builder.append(blankRank);
         builder.append(StringUtil.appendNewLine("pppppppp"));
         builder.append(StringUtil.appendNewLine("rnbqkbnr"));
+        System.out.println(sut.print());
         assertEquals(builder.toString(), sut.print());
     }
 
@@ -47,16 +48,17 @@ public class BoardTest {
     @Test
     void testPicecPosition() {
         sut.initialize();
-        assertEquals(sut.getGamePositionPiece('a', 8).getRepresentation(), 'R');
-        assertEquals(sut.getGamePositionPiece('e', 1).getRepresentation(), 'k');
+        assertEquals(sut.getGamePositionPiece(8,'a').getRepresentation(), 'R');
+        assertEquals(sut.getGamePositionPiece(1,'e').getRepresentation(), 'k');
     }
 
     @Test
     void testAddPicec() {
-        assertNull(sut.getGamePositionPiece('a', 8));
+        assertNull(sut.getGamePositionPiece(8,'a'));
 
         Piece piece = Pawn.createBlack();
-        sut.addPiece('a', 8, piece);
+        sut.addPiece(8,'a', piece);
+        assertNotNull(sut.getGamePositionPiece(8,'a'));
     }
 
     @Test

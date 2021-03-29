@@ -16,9 +16,9 @@ public class Game {
 
     public float totalScore(Object color) {
         float score = 0;
-        Boolean[] isColHavePawns = new Boolean[Board.ROW];
+        Boolean[] isRowHavePawns = new Boolean[Board.ROW];
 
-        Arrays.fill(isColHavePawns, false);
+        Arrays.fill(isRowHavePawns, false);
 
         for (int row = 0; row < Board.ROW; row++) {
             for (int col = 0; col < Board.COL; col++) {
@@ -28,17 +28,18 @@ public class Game {
 
                 score += piece.getForce();
 
-                if (isColHavePawns[row]) score -= 0.5;
-                if (piece.getClass() == Pawn.class)
-                    isColHavePawns[row] = true;
+                if (piece.getClass() == Pawn.class) {
+                    if (isRowHavePawns[col]) score -= 0.5;
+                    isRowHavePawns[col] = true;
+                }
             }
         }
         return score;
     }
 
     public List<Piece> sort(Object color) {
-
         ArrayList<Piece> pieceList = new ArrayList<>();
+
         for (Piece[] pieces : board.getBoards())
             pieceList.addAll(Arrays.asList(pieces));
 
@@ -48,6 +49,4 @@ public class Game {
                 .sorted()
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -73,10 +73,9 @@ public class Board implements Iterable<Piece> {
         return count;
     }
 
-    public Piece getGamePositionPiece(char rowChar, int col) {
-        col--;
-        int row = CharUtill.chessCharToInt(rowChar);
-        return get(row, col);
+    public Piece getGamePositionPiece(int row, char colChat) {
+        int col = CharUtill.chessCharToInt(colChat);
+        return get(--row, col);
     }
 
     public Piece[][] getBoards() {
@@ -84,17 +83,16 @@ public class Board implements Iterable<Piece> {
     }
 
     public Piece get(int row, int col) {
-        return boards[col][row];
+        return boards[row][col];
     }
 
     public void put(int row, int col, Piece piece) {
-        boards[col][row] = piece;
+        boards[row][col] = piece;
     }
 
-    public void addPiece(char rowChar, int col, Piece piece) {
-        col--;
-        int row = CharUtill.chessCharToInt(rowChar);
-        put(row, col, piece);
+    public void addPiece(int row, char colChar, Piece piece) {
+        int col = CharUtill.chessCharToInt(colChar);
+        put(--row, col, piece);
     }
 
     private void initializeBlackStartRow() {
