@@ -10,6 +10,7 @@ import util.StringUtil;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
     private Board sut;
@@ -48,17 +49,17 @@ public class BoardTest {
     @Test
     void testPicecPosition() {
         sut.initialize();
-        assertEquals(sut.getGamePositionPiece(8,'a').getRepresentation(), 'R');
-        assertEquals(sut.getGamePositionPiece(1,'e').getRepresentation(), 'k');
+        assertEquals(sut.getGamePositionPiece(8, 'a').getRepresentation(), 'R');
+        assertEquals(sut.getGamePositionPiece(1, 'e').getRepresentation(), 'k');
     }
 
     @Test
     void testAddPicec() {
-        assertNull(sut.getGamePositionPiece(8,'a'));
+        assertNull(sut.getGamePositionPiece(8, 'a'));
 
         Piece piece = Pawn.createBlack();
-        sut.addPiece(8,'a', piece);
-        assertNotNull(sut.getGamePositionPiece(8,'a'));
+        sut.addPiece(8, 'a', piece);
+        assertNotNull(sut.getGamePositionPiece(8, 'a'));
     }
 
     @Test
@@ -66,10 +67,22 @@ public class BoardTest {
         sut.initialize();
         Iterator<Piece> iterator = sut.iterator();
 
-        assertEquals(sut.get(0, 0).getRepresentation(), iterator.next().getRepresentation());
-        assertEquals(sut.get(0, 1).getRepresentation(), iterator.next().getRepresentation());
-        assertEquals(sut.get(0, 2).getRepresentation(), iterator.next().getRepresentation());
-        assertEquals(sut.get(0, 3).getRepresentation(), iterator.next().getRepresentation());
+        for (int i = 0; i < 8; i++)
+            assertEquals(sut.get(0, i).getRepresentation(), iterator.next().getRepresentation());
 
+        for (int i = 0; i < 8; i++)
+            assertEquals(sut.get(1, i).getRepresentation(), iterator.next().getRepresentation());
+
+        for (int i = 2; i < 6; i++)
+            for (int j = 0; j < 8; j++)
+                assertNull(iterator.next());
+
+        for (int i = 0; i < 8; i++)
+            assertEquals(sut.get(6, i).getRepresentation(), iterator.next().getRepresentation());
+
+        for (int i = 0; i < 8; i++)
+            assertEquals(sut.get(7, i).getRepresentation(), iterator.next().getRepresentation());
+
+        assertFalse(iterator.hasNext());
     }
 }
