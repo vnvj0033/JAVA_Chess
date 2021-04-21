@@ -1,12 +1,14 @@
 package chess.pieces;
 
 
+import chess.Board;
+
 /**
  * 체스에서 쫄병말이다
  *
  * @author 상엽
  */
-public class Piece implements Comparable<Piece> {
+abstract public class Piece implements Comparable<Piece> {
 
     protected enum Color {WHITE, BLACK}
 
@@ -65,6 +67,8 @@ public class Piece implements Comparable<Piece> {
     public int[][] getPossibleMoves(char charRow, int col) {
         return null;
     }
+
+    abstract public String[] getPossibleMoves(String position, Board board);
 
     @Override
     public String toString() {

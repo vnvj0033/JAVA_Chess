@@ -1,5 +1,7 @@
 package chess.pieces;
 
+import chess.Board;
+
 public class Knight extends Piece {
     private Knight(Color color, char representation){
         super(color);
@@ -13,5 +15,10 @@ public class Knight extends Piece {
 
     public static Knight createBlack(){
         return new Knight(Color.BLACK, 'N');
+    }
+
+    @Override
+    public String[] getPossibleMoves(String position, Board board) {
+        return new String[0];
     }
 }

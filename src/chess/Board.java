@@ -86,13 +86,15 @@ public class Board implements Iterable<Piece> {
         return boards[row][col];
     }
 
-    public void put(int row, int col, Piece piece) {
+    public void put(String position, Piece piece) {
+        int col = CharUtill.chessCharToInt(position.charAt(0));
+        int row = Integer.parseInt(String.valueOf(position.charAt(1)));
         boards[row][col] = piece;
     }
 
     public void addPiece(int row, char colChar, Piece piece) {
         int col = CharUtill.chessCharToInt(colChar);
-        put(--row, col, piece);
+        boards[row][col] = piece;
     }
 
     private void initializeBlackStartRow() {

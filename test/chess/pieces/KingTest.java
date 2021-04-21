@@ -1,35 +1,21 @@
 package chess.pieces;
 
+import chess.Board;
 import org.junit.jupiter.api.Test;
-import util.StringUtil;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KingTest {
+    private Board board = new Board();
 
     @Test
-    void testMovePiece() {
-        Piece king = King.createBlack();
+    void testKingMoveNotOnEdge() {
+        Piece piece = King.createBlack();
+        board.put("d3", piece);
+        String[] moves = piece.getPossibleMoves("d3", board);
 
-        int[][] moves = king.getPossibleMoves('b', 4);
-
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(StringUtil.appendNewLine("4, 1"));
-        builder.append(StringUtil.appendNewLine("3, 2"));
-        builder.append(StringUtil.appendNewLine("2, 1"));
-        builder.append(StringUtil.appendNewLine("3, 0"));
-        builder.append(StringUtil.appendNewLine("4, 2"));
-        builder.append(StringUtil.appendNewLine("2, 2"));
-        builder.append(StringUtil.appendNewLine("2, 0"));
-        builder.append(StringUtil.appendNewLine("4, 0"));
-
-        StringBuilder result = new StringBuilder();
-
-        for (int[] move : moves) {
-            result.append(StringUtil.appendNewLine(move[0] + ", " + move[1]));
-        }
-
-        assertEquals(result.toString(), builder.toString());
+        assertTrue(Arrays.asList(moves).containsAll(Arrays.asList("c4", "d4", "e4", "c3", "e3", "c2", "d2", "e2")));
     }
 }

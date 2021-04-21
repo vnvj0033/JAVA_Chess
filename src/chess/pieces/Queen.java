@@ -22,13 +22,18 @@ public class Queen extends Piece {
         return new Queen(Color.BLACK, 'Q');
     }
 
-    @Override
+
     public int[][] getPossibleMoves(char charRow, int col) {
         int row = CharUtill.chessCharToInt(charRow);
 
         ArrayList<int[]> moves = recursionMove(--col, row);
 
         return moves.toArray(int[][]::new);
+    }
+
+    @Override
+    public String[] getPossibleMoves(String position, Board board) {
+        return new String[0];
     }
 
     private ArrayList<int[]> recursionMove(int col, int row) {

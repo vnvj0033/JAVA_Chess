@@ -1,5 +1,7 @@
 package chess.pieces;
 
+import chess.Board;
+
 public class Pawn extends Piece {
     private Pawn(Color color, char representation){
         super(color);
@@ -13,5 +15,10 @@ public class Pawn extends Piece {
 
     public static Pawn createBlack(){
         return new Pawn(Color.BLACK, 'P');
+    }
+
+    @Override
+    public String[] getPossibleMoves(String position, Board board) {
+        return new String[0];
     }
 }

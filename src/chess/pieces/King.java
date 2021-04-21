@@ -20,12 +20,12 @@ public class King extends Piece {
         return new King(Color.BLACK, 'K');
     }
 
-    @Override
-    public int[][] getPossibleMoves(char charRow, int col) {
-        int row = CharUtill.chessCharToInt(charRow);
+    public String[] getPossibleMoves(String position, Board board) {
+        int col = CharUtill.chessCharToInt(position.charAt(0));
+        int row = Integer.parseInt(String.valueOf(position.charAt(1)));
+
         int newCol, newRow;
-        col--;
-        ArrayList<int[]> moves = new ArrayList();
+        ArrayList<String> moves = new ArrayList();
 
         int[][] offsets = {
                 {1, 0},
@@ -46,9 +46,9 @@ public class King extends Piece {
                 continue;
             if (col == newCol && row == newRow)
                 continue;
-            moves.add(new int[]{newCol, newRow});
+            moves.add(CharUtill.chessIntToChar(newCol) + String.valueOf(newRow));
 
         }
-        return moves.toArray(int[][]::new);
+        return moves.toArray(String[]::new);
     }
 }
