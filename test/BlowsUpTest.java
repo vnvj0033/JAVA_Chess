@@ -14,6 +14,23 @@ public class BlowsUpTest {
         }
     }
 
+    @Test
+    void testReThrows() {
+        try {
+            reThrows();
+        } catch (Exception e) {
+            System.out.println(e.getCause().getMessage());
+        }
+    }
+
+    private void reThrows() {
+        try {
+            blowsUp();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     void blowsUp() {
         throw new RuntimeException("Somebody showld catch this!");
     }
