@@ -23,6 +23,17 @@ public class BlowsUpTest {
         }
     }
 
+    @Test
+    void testWithProblems() {
+        try {
+            doSomething();
+        }catch (Exception success) {}
+    }
+
+    private void doSomething() throws Exception {
+        throw new Exception("blah");
+    }
+
     private void reThrows() {
         try {
             blowsUp();
