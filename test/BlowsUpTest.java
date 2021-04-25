@@ -9,10 +9,12 @@ public class BlowsUpTest {
         try {
             blowsUp();
             fail();
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    void blowsUp() {throw new RuntimeException("Somebody showld catch this!");}
+    void blowsUp() {
+        throw new RuntimeException("Somebody showld catch this!");
+    }
 }
