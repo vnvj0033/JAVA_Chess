@@ -32,6 +32,12 @@ public class BlowsUpTest {
     }
 
     void blowsUp() {
-        throw new RuntimeException("Somebody showld catch this!");
+        throw new SimpleException("Somebody showld catch this!");
+    }
+
+    class SimpleException extends RuntimeException{
+        public SimpleException(String message) {
+            super(message);
+        }
     }
 }
