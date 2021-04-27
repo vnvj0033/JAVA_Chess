@@ -27,7 +27,10 @@ public class BlowsUpTest {
     void testWithProblems() {
         try {
             doSomething();
-        }catch (Exception success) {}
+            fail();
+        }catch (Exception success) {
+            reversStackTrace(success);
+        }
     }
 
     private void doSomething() throws Exception {
@@ -40,6 +43,16 @@ public class BlowsUpTest {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    void reversStackTrace(Exception e) {
+        StringBuilder builder = new StringBuilder();
+        StackTraceElement[] stackTrace = e.getStackTrace();
+        for (int i = stackTrace.length-1; i >= 0; i--) {
+            builder.append(stackTrace[i].toString());
+            builder.append(System.lineSeparator());
+        }
+        System.out.println(builder.toString());
     }
 
     void blowsUp() {
